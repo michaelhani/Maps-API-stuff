@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>search for restaurant</title>
+	<style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+	<script>
+	var map;
+	var service;
+	var infowindow;
+	var pyrmont = new google.maps.LatLng(-33.866, 151.195);
+
+	infowindow = new google.maps.InfoWindow();
+
+	function initialize(){
+		var pyrmont = new google.maps.LatLng(-33.866, 151.195);
+		map = new google.maps.Map(document.getElementById('map'), {
+		center: pyrmont,
+		zoom: 15
+	});
+}
+	var request = {
+		location: pyrmont,
+		radius: '500',
+		types: ['store']
+	};
+
+	var service = new google.maps.places.PlacesService(map);
+	service.nearbySearch(request, callback);
+
+	function callback(results, status){
+		if (status == google.maps.places.PlacesServiceStatus.OK){
+			for (var i = 0; i< results.length; i++){
+				var place = results[i];
+				console.log(place);
+			}
+		}
+	}
+	</script>
+</head>
+<body>
+	<div id="map"></div>
+</body>
+</html>
